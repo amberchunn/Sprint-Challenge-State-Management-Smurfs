@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { connect } from 'react-redux';
 
-const Village = () => {
-	const [data, setData] = useState([]);
-
-	useEffect(async () => {
-		const result = await axios('http://localhost:3333/smurfs');
-		console.log(result);
-		setData(result.data);
-	}, []);
+const Village = (props) => {
 	return (
 		<div className="container">
 			<h2>Smurfs Village</h2>
-			{data.map((smurf) => {
+			{props.data.map((smurf) => {
 				{
 					return `Hello, my name is ${smurf.name} and I'm ${smurf.age} years old.`;
 				}
@@ -21,4 +14,8 @@ const Village = () => {
 	);
 };
 
-export default Village;
+const mapStateToProps = (state) => ({
+	...state,
+});
+
+export default connect(mapStateToProps, {})(Village);
