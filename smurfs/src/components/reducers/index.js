@@ -1,39 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {
-	ADDING_NEW_SMURF,
+	GET_SMURFS_START,
+	GET_SMURFS_FAIL,
+	GET_SMURFS_SUCCESS,
 	ADDED_NEW_SMURF,
-	ADD_NEW_SMURF,
-	ADD_NEW_SMURF_FAILED,
 } from '../actions/index';
 
-const [data, setData] = useState([]);
+const initialState = {
+	smurfs: [],
+	isLoading: false,
+	error: '',
+};
 
-useEffect(async () => {
-	const fetchData = async () => {
-		const result = await axios('http://localhost:3333/smurfs');
-		// console.log(result);
-		setData(result.data);
-	};
-	fetchData();
-}, []);
-
-export const rootReducer = (state = data, action) => {
+export const rootReducer = (state = initialState, action) => {
+	// console.log('rootReducer', action);
 	switch (action.type) {
-		case ADD_NEW_SMURF:
+		case GET_SMURFS_START:
 			return {
 				...state,
-				...payload,
+				isLoading: true,
+				error: '',
 			};
-		case ADD_NEW_SMURF_FAILED:
+		case GET_SMURFS_SUCCESS:
 			return {
 				...state,
-				message: `Oh no! The village has rejected the new member's intake. Please try again.`,
+				isLoading: false,
+				smurfs: [...state.smurfs, action.payload],
+				error: '',
+			};
+		case GET_SMURFS_FAIL:
+			return {
+				...state,
+				isLoading: false,
+				error: 'oops',
 			};
 		case ADDED_NEW_SMURF:
 			return {
 				...state,
-				message: `Huzzah! Welcome, new villager!`,
+				smurfs: [...state.smurfs, action.payload],
 			};
 		default:
 			return state;
