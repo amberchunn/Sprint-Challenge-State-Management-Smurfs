@@ -1,10 +1,15 @@
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
 const Smurf = (props) => {
-	{
-		// console.log(props);
-	}
-	return `Hello, my name is ${props.smurf.name} and I'm ${props.smurf.age} years old.`;
+	return (
+		<div className="member">
+			<p>
+				{`Hello, my name is ${props.smurf.name}. I'm ${props.smurf.height}cm tall
+					and I'm ${props.smurf.age} years old. `}
+			</p>
+		</div>
+	);
 };
 
 const mapStateToProps = (state) => {

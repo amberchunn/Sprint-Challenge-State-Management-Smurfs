@@ -1,28 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addNewSmurf } from '../components/actions/index';
+import { useForm } from 'react-hook-form';
+import { addNewSmurf } from './actions/index';
 
 const Intake = (props) => {
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		props.smurf = {
-			name: props.input.name.value,
-			age: props.input.age.value,
-			height: props.input.height.value,
-		};
-		props.addNewSmurf(props.smurf);
+	const { register, handleSubmit, reset, errors } = useForm();
+	// Add Smurf to Redux store
+	const onSubmit = (data, e) => {
+		e.target.reset(); // reset after form submit
+		props.addNewSmurf(data);
 	};
-
 	return (
 		<div className="villager-form">
 			<h3>Village Intake Form</h3>
-			<form>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<label htmlFor="name">Name</label>
-				<input type="text" name="name" value={props.name} />
+				<input ref={register} type="text" name="name" value={props.name} />
 				<label htmlFor="age">Age</label>
-				<input type="text" name="age" value={props.age} />
+				<input ref={register} type="text" name="age" value={props.age} />
 				<label htmlFor="height">Height</label>
-				<input type="text" name="height" value={props.height} />
+				<input ref={register} type="text" name="height" value={props.height} />
 				<button onClick={handleSubmit}>Welcome Home!</button>
 			</form>
 		</div>
@@ -31,7 +28,9 @@ const Intake = (props) => {
 
 const mapStateToProps = (state) => ({
 	...state,
-	smurfs: state.smurfs,
+	data: state.smurfs,
+	name: state.name,
+	age: state.age,
+	height: state.height,
 });
-
 export default connect(mapStateToProps, { addNewSmurf })(Intake);

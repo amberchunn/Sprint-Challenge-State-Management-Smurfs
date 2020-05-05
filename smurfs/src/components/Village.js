@@ -15,16 +15,12 @@ const Village = (props) => {
 			{props.isLoading ? (
 				<p>Welcome! Please fill out our intake form below to join the village.</p>
 			) : (
-				<ul className="villagers">
+				<div className="villagers">
 					{props.smurfs &&
-						props.smurfs.map((smurf, i) => (
-							<>
-								{console.log(smurf)}
-								<Smurf smurf={smurf[i]} />
-								{console.log(smurf)}
-							</>
+						props.smurfs.map((smurf) => (
+							<Smurf key={smurf.name} smurf={smurf} />
 						))}
-				</ul>
+				</div>
 			)}
 		</div>
 	);
