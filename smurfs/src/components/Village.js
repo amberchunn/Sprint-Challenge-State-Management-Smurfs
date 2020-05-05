@@ -17,9 +17,7 @@ const Village = (props) => {
 			) : (
 				<div className="villagers">
 					{props.smurfs &&
-						props.smurfs.map((smurf) => (
-							<Smurf key={smurf.name} smurf={smurf} />
-						))}
+						props.smurfs.map((smurf) => <Smurf key={smurf.id} smurf={smurf} />)}
 				</div>
 			)}
 		</div>

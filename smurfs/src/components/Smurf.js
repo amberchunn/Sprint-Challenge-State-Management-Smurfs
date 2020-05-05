@@ -5,7 +5,7 @@ import { removeSmurf } from './actions/index';
 const Smurf = (props) => {
 	const leaveVillage = (e) => {
 		e.preventDefault();
-		props.removeSmurf();
+		props.removeSmurf(props.smurf);
 		// console.log(props);
 	};
 	return (
