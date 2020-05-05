@@ -5,6 +5,7 @@ export const GET_SMURFS_SUCCESS = 'GET_SMURFS_SUCCESS';
 export const GET_SMURFS_FAIL = 'GET_SMURFS_FAIL';
 
 export const ADDED_NEW_SMURF = 'ADDED_NEW_SMURF';
+export const REMOVE_SMURF = 'REMOVE_SMURF';
 
 export const getSmurfs = () => (dispatch) => {
 	dispatch({ type: GET_SMURFS_START });
@@ -19,4 +20,8 @@ export const getSmurfs = () => (dispatch) => {
 
 export const addNewSmurf = (smurf) => (dispatch) => {
 	dispatch({ type: ADDED_NEW_SMURF, payload: smurf });
+};
+
+export const removeSmurf = (smurf) => (dispatch) => {
+	dispatch({ type: REMOVE_SMURF, payload: smurf });
 };

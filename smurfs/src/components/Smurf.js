@@ -1,18 +1,20 @@
 import { connect } from 'react-redux';
 import React from 'react';
+import { removeSmurf } from './actions/index';
 
 const Smurf = (props) => {
+	const leaveVillage = (e) => {
+		e.preventDefault();
+		props.removeSmurf();
+		// console.log(props);
+	};
 	return (
 		<div className="member">
 			<p>
 				{`Hello, my name is ${props.smurf.name}. I'm ${props.smurf.height}cm tall
 					and I'm ${props.smurf.age} years old. `}
-				<span className="edit">
-					<a href="#">+ Edit +</a>
-				</span>
-				<span> | </span>
 				<span className="remove">
-					<a href="#"> x Remove x</a>
+					<button onClick={leaveVillage}>Leave Village</button>
 				</span>
 			</p>
 		</div>
@@ -25,4 +27,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, {})(Smurf);
+export default connect(mapStateToProps, { removeSmurf })(Smurf);
